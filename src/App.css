@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.Morning{
+  text-align: center;
+  color: orange;
+}
+
+.Noon{
+  text-align: center;
+  color: blue;
+}
+
+.Evening{
+  text-align: center;
+  color: green;
+}
