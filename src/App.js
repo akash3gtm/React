@@ -3,40 +3,43 @@ import './App.css';
 
 class App extends React.Component {
   constructor(){
+    super();
     this.state = {title : '', greet : ''};
-    //initialise the states
   }
 
   componentDidMount(){
-    this.update = setInterval(update(this.state), 60*1000);
+    this.update = setInterval(this.check(), 60*1000);
+  }
+
+  componentWillUnmount() {
+      clearInterval(this.update);
+  }
+
+  check() {
+    const hrs = new Date().getHours();
+    if (hrs < 12){
+      this.setState({title : 'Morning',
+      greet : 'Good Morning from React. You are having coffee with me.' });
+    }
+    else if (hrs >= 12 && hrs < 17){
+      this.setState({title : 'Noon',
+      greet : 'Good Afternoon from React. Wanna lunch with me?' });
+    }
+    else if (hrs >= 17 && hrs <= 24){
+      this.setState({title : 'Evening',
+      greet : 'Good Evening from React. Lets drink together.' });
+    }
   }
 
   render(){
-    const {screen} = this.state;
+    const screen = this.state;
     return <React.Fragment>
-    <h2 className={title}>
-      {greet}
+    <h2 className={screen.title}>
+      {screen.greet}
     </h2>
     </React.Fragment> ;
   }
 
 }
-
-function update(state) {
-  const hrs = new Date().getHours();
-  if (hrs < 12){
-    state.title = 'Morning';
-    state.greet = 'Good Morning from React. You are having coffee with me.';
-  }
-  else if (hrs >= 12 && hrs <= 17){
-    state.title = 'Noon';
-    state.greet = 'Good Afternoon from React. Wanna lunch with me?';
-  }
-  else if (hrs >= 17 && hrs <= 24){
-    state.title = 'Evening';
-    state.greet = 'Good Evening from React. Lets drink together.';
-  }
-}
-
 
 export default App;
